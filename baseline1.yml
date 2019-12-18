@@ -1,0 +1,18 @@
+---
+- name: This is the playbook for Baseline1
+  hosts: all
+  become: true
+  gather_facts: false
+  
+  tasks:
+    - name: task1
+      debug:
+        msg: "Executing config_spec_1 release #1"
+      tags: foo
+        
+  tasks:
+    - name: task2
+      debug:
+        msg: "Executing config_spec_2 release #1"
+      tags: bar
+        
