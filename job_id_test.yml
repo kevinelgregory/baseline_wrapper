@@ -1,6 +1,6 @@
 ---
 - name: Baseline Provisioning Wrapper
-  hosts: localhost
+  hosts: all
   become: true
   gather_facts: false
 
