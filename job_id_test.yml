@@ -64,9 +64,9 @@
         force_basic_auth: true
         validate_certs: false
         #status_code: 201
-      until: job_info.json.status != "pending"
-      retries: 10
-      delay: 5
+      #until: job_info.json.status != "pending"
+      #retries: 10
+      #delay: 5
 
     - debug:
         msg: "Retrieving Job ID# through Ansible Tower API"
