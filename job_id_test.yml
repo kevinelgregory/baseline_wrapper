@@ -18,7 +18,7 @@
       tags: find_id
 
     - set_fact:
-      job_template_id: "{{ (job_template_json.json.results|first)['id'] }}"
+        job_template_id: "{{ (job_template_json.json.results|first)['id'] }}"
 
     - debug:
         msg: "Retieving Job Template ID through Ansible Tower API"
