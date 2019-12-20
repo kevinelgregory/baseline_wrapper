@@ -12,8 +12,8 @@
         url: https://localhost/api/v2/job_templates/?name=Test+connectivity+to+hosts
         # "template_name" must include variable from request system indicating which tagged release to run
         method: GET
-        uri_username: admin
-        uri_password: redhat
+        uri_username: "admin"
+        uri_password: "redhat"
         force_basic_auth: true
         validate_certs: false
       register: job_template_json
