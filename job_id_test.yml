@@ -40,7 +40,7 @@
         #body_format: json
         #body: "{\"limit\":\"mnode1\"}"
       register: job_info
-      #until: (job_info.json.status == 'successful') or (job_info.json.status == 'failed') or (job_info.json.status == 'canceled') (job_info.json.status == 'error')
+      until: (job_info.json.status == 'successful') or (job_info.json.status == 'failed') or (job_info.json.status == 'canceled') (job_info.json.status == 'error')
       #retries: 5
       #delay: 1
 
