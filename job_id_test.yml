@@ -44,7 +44,7 @@
       #delay: 1
 
     - set_fact:
-        job_status: "{{ job_info.status }}"
+        job_status: "{{ job_info.json.status }}"
 
     - debug:
         msg:
