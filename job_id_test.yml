@@ -15,7 +15,7 @@
         method: GET
         uri_username: admin
         uri_password: redhat
-#        force_basic_auth: true
+        force_basic_auth: true
         validate_certs: false
       register: job_template_json
       tags: find_id
