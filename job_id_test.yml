@@ -40,7 +40,7 @@
         #body_format: json
         #body: "{\"limit\":\"mnode1\"}"
       register: job_info
-      until: 'pending' not in job_info.json.status
+      until: "'pending' not in job_info.json.status"
       retries: 5
       delay: 5
 
