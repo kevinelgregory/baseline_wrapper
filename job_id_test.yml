@@ -1,0 +1,25 @@
+---
+- name: Baseline Provisioning Wrapper
+  hosts: all
+  become: true
+  gather_facts: false
+
+
+  tasks:
+    - name: Find Job Template ID
+      uri:
+        #url: https://ansibletower.net/api/v2/job_templates/name={{ job_template_name }}
+        url: https://localhost:8443/api/v2/job_templates/name=Test%20connectivity%20to%20hosts
+        # "template_name" must include variable from request system indicating which tagged release to run
+        method: GET
+        uri_username: admin
+        uri_password: "{{ password }}"
+      register: job_template_json
+      tags: find_id
+
+    - set_fact:
+      job_template_id: "{{ (job_template_json.json.results|first)['id'] }}"
+
+    - debug:
+        msg: "Retieving Job Template ID through Ansible Tower API"
+        var: job_template_id
