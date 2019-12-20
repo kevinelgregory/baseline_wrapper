@@ -10,7 +10,6 @@
       uri:
         #url: https://ansibletower.net/api/v2/job_templates/name={{ job_template_name }}
         url: https://localhost/api/v2/job_templates/?name=Test+connectivity+to+hosts
-        # "template_name" must include variable from request system indicating which tagged release to run
         method: GET
         url_username: admin
         url_password: redhat
@@ -26,3 +25,32 @@
         msg:
           - "Retrieving Job Template ID through Ansible Tower API"
           - "The Job Template ID is: {{ job_template_id }} "
+
+
+    - name: Execute Job Template using template_id
+      uri:
+        #url: https://{{ ansible_tower_url }}/api/v2/job_templates/{{ job_template_id }}/launch/
+        url: https://localhost/api/v2/job_templates/{{ job_template_id }}/launch/
+        method: POST
+        url_username: admin
+        url_password: redhat
+        force_basic_auth: true
+        validate_certs: false
+        body_format: json
+        body: "{\"limit\":\"mnode1\"}"
+      register: job_info
+      until:
+        - (job_info.json.status == 'successful') or
+          (job_info.json.status == 'failed') or
+          (job_info.json.status == 'canceled')
+          (job_info.json.status == 'error')
+      retries: 5
+      delay: 1
+
+    - set_fact:
+        job_status: "{{ job_info.json.status }}"
+
+    - debug:
+        msg:
+          - "Launching Job Template using template_id retrieved in previous step"
+          - "The Job status was reported as: {{ job_status }}"
