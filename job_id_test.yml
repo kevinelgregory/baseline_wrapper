@@ -9,7 +9,7 @@
     - name: Find Job Template ID
       uri:
         #url: https://ansibletower.net/api/v2/job_templates/name={{ job_template_name }}
-        url: https://localhost/api/v2/job_templates/name=Test%20connectivity%20to%20hosts
+        url: https://localhost/api/v2/job_templates/name=Test connectivity to hosts
         # "template_name" must include variable from request system indicating which tagged release to run
         method: GET
         uri_username: admin
