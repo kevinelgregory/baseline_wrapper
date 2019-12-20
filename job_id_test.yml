@@ -23,5 +23,5 @@
         job_template_id: "{{ (job_template_json.json.results|first)['id'] }}"
 
     - debug:
-        msg: "Retrieving Job Template ID through Ansible Tower API"
+#        msg: "Retrieving Job Template ID through Ansible Tower API"
         var: job_template_id
