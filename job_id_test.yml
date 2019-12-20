@@ -14,6 +14,7 @@
         method: GET
         uri_username: admin
         uri_password: redhat
+        validate_certs: false
       register: job_template_json
       tags: find_id
 
