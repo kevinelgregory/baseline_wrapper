@@ -36,6 +36,7 @@
         url_password: redhat
         force_basic_auth: true
         validate_certs: false
+        status_code: 201
         #body_format: json
         #body: "{\"limit\":\"mnode1\"}"
       register: job_info
