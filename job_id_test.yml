@@ -9,12 +9,12 @@
     - name: Find Job Template ID
       uri:
         #url: https://ansibletower.net/api/v2/job_templates/name={{ job_template_name }}
-#        url: https://localhost/api/v2/job_templates/?name=Test+connectivity+to+hosts
-        url: "https://localhost/api/v2/job_templates/"
+        url: https://localhost/api/v2/job_templates/?name=Test+connectivity+to+hosts
+#        url: https://localhost/api/v2/job_templates/
         # "template_name" must include variable from request system indicating which tagged release to run
         method: GET
-        uri_username: "admin"
-        uri_password: "redhat"
+        uri_username: admin
+        uri_password: redhat
         force_basic_auth: true
         validate_certs: false
       register: job_template_json
@@ -24,5 +24,5 @@
         job_template_id: "{{ (job_template_json.json.results|first)['id'] }}"
 
     - debug:
-        msg: "Retieving Job Template ID through Ansible Tower API"
+        msg: "Retrieving Job Template ID through Ansible Tower API"
         var: job_template_id
