@@ -40,9 +40,10 @@
         #body_format: json
         #body: "{\"limit\":\"mnode1\"}"
       register: job_info
+      until: job_info.json.status != "pending"
       #until: "'pending' not in job_info.json.status"
-      #retries: 10
-      #delay: 10
+      retries: 5
+      delay: 30
 
     - debug:
         msg: "The Job ID is {{ job_info.json.id }}"
