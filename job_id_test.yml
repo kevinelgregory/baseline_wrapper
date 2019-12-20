@@ -13,7 +13,7 @@
         # "template_name" must include variable from request system indicating which tagged release to run
         method: GET
         uri_username: admin
-        uri_password: "{{ password }}"
+        uri_password: redhat
       register: job_template_json
       tags: find_id
 
