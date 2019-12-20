@@ -44,6 +44,9 @@
       #retries: 10
       #delay: 10
 
+    - debug:
+        msg: "The Job ID is {{ job_info.json.id }}"
+
     - set_fact:
         job_status: "{{ job_info.json.status }}"
 
