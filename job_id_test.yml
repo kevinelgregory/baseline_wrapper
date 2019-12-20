@@ -26,4 +26,3 @@
         msg:
           - "Retrieving Job Template ID through Ansible Tower API"
           - "The Job Template ID is: {{ job_template_id }} "
-#        var: job_template_id
