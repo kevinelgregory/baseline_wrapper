@@ -1,0 +1,77 @@
+---
+- name: Baseline Provisioning Wrapper
+  hosts: all
+  become: true
+  gather_facts: false
+
+
+  tasks:
+    - name: Find Job Template ID
+      uri:
+        #url: https://ansibletower.net/api/v2/job_templates/name={{ job_template_name }}
+        url: https://localhost/api/v2/job_templates/?name=Test+connectivity+to+hosts
+        method: GET
+        url_username: admin
+        url_password: redhat
+        force_basic_auth: true
+        validate_certs: false
+      register: job_template_json
+      tags: find_id
+
+    - set_fact:
+        job_template_id: "{{ (job_template_json.json.results|first)['id'] }}"
+
+    - debug:
+        msg:
+          - "Retrieving Job Template ID through Ansible Tower API"
+          - "The Job Template ID is: {{ job_template_id }} "
+
+
+    - name: Execute Job Template using template_id
+      uri:
+        #url: https://{{ ansible_tower_url }}/api/v2/job_templates/{{ job_template_id }}/launch/
+        url: https://localhost/api/v2/job_templates/{{ job_template_id }}/launch/
+        method: POST
+        url_username: admin
+        url_password: redhat
+        force_basic_auth: true
+        validate_certs: false
+        status_code: 201
+      register: job_info
+
+    - set_fact:
+        job_id: "{{ job_info.json.id }}"
+
+    - debug:
+        msg:
+          - "Launching Job Template using template_id retrieved in previous step"
+          - "The ID of the launched Job is {{ job_id }} "
+
+
+    - name: Get status of job launched in previous task
+      uri:
+        #url: https://{{ ansible_tower_url }}/api/v2/jobs/{{ job_id }}
+        url: https://localhost/api/v2/jobs/{{ job_id }}
+        method: GET
+        url_username: admin
+        url_password: redhat
+        force_basic_auth: true
+        validate_certs: false
+      register: job_data
+      until:
+        - job_data.json.status != "pending"
+        - job_data.json.status != "running"
+        - job_data.json.status != "waiting"
+      retries: 10
+      delay: 10
+      
+    - set_fact:
+        job_status: "{{ job_data.json.status }}"
+        
+    - name: Check the Job status and exit the playbook when the status is "failed"
+      fail:
+        msg: "The status of Job ({{ job_id }}) was reported as: {{ job_status }}"
+      when: job_status == "failed"  
+
+    - debug:
+        msg: "The status of Job ({{ job_id }}) was reported as: {{ job_status }}"
