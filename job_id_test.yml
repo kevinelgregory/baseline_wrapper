@@ -72,7 +72,7 @@
       fail:
         msg: "The launched Job ({{ job_id }}) failed"
 #     when: job_data.status|lower == "successful"
-      when: "{{ job_status }}"|lower == "successful"  
+      when: job_status|lower == "successful"  
 
     - debug:
         msg:
