@@ -64,7 +64,7 @@
         force_basic_auth: true
         validate_certs: false
         #status_code: 201
-       register: job_data
+      register: job_data
       until: job_data.json.status|lower != "successful" or job_data.status|lower == "failed"
       retries: 10
       delay: 10
