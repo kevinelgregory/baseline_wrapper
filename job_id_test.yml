@@ -37,8 +37,6 @@
         force_basic_auth: true
         validate_certs: false
         status_code: 201
-        #body_format: json
-        #body: "{\"limit\":\"mnode1\"}"
       register: job_info
 
     - set_fact:
@@ -52,26 +50,28 @@
 
     - name: Get status of job launched in previous task
       uri:
-        #url: https://{{ ansible_tower_url }}/api/v2/job_templates/{{ job_template_id }}/launch/
+        #url: https://{{ ansible_tower_url }}/api/v2/jobs/{{ job_id }}
         url: https://localhost/api/v2/jobs/{{ job_id }}
         method: GET
         url_username: admin
         url_password: redhat
         force_basic_auth: true
         validate_certs: false
-        #status_code: 201
       register: job_data
-      until: job_data.json.status|lower == "successful" or job_data.status|lower == "failed"
+      until:
+        - job_data.json.status != "pending"
+        - job_data.json.status != "running"
+        - job_data.json.status != "waiting"
       retries: 10
       delay: 10
       
     - set_fact:
         job_status: "{{ job_data.json.status }}"
         
-    - name: Check the Job status and exit the playbook when the status is "Failed"
+    - name: Check the Job status and exit the playbook when the status is "failed"
       fail:
-        msg: "The status of the launched Job ({{ job_id }}) was reported as: {{ job_status }}"
-      when: job_status|lower == "successful"  
+        msg: "The status of Job ({{ job_id }}) was reported as: {{ job_status }}"
+      when: job_status == "successful"  
 
     - debug:
         msg:
