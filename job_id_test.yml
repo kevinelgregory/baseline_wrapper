@@ -54,7 +54,7 @@
           - "The ID of the launched Job is {{ job_id }} "
 
 
-    - name: Get status
+    - name: Get status of job launched in previous task
       uri:
         #url: https://{{ ansible_tower_url }}/api/v2/job_templates/{{ job_template_id }}/launch/
         url: https://localhost/api/v2/jobs/{{ job_id }}
