@@ -73,7 +73,7 @@
         msg:
         - "The launched Job ({{ job_id }}) failed"
         - "The Job status was reported as: {{ job_status }}"
-      when: job_status|lower == "failed"  
+      when: job_status|lower == "successful"  
 
     - debug:
         msg:
