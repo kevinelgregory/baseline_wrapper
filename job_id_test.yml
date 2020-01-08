@@ -74,6 +74,4 @@
       when: job_status == "failed"  
 
     - debug:
-        msg:
-        - "Retrieving Job ID# through Ansible Tower API"
-        - "The Job status was reported as: {{ job_status }}"
+        msg: "The status of Job ({{ job_id }}) was reported as: {{ job_status }}"
