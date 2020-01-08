@@ -71,7 +71,7 @@
     - name: Check the Job status and exit the playbook when the status is "failed"
       fail:
         msg: "The status of Job ({{ job_id }}) was reported as: {{ job_status }}"
-      when: job_status == "successful"  
+      when: job_status == "failed"  
 
     - debug:
         msg:
