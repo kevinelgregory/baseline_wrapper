@@ -40,6 +40,9 @@
         #body_format: json
         #body: "{\"limit\":\"mnode1\"}"
       register: job_info
+      until: job_info.json.status|lower != "successful" or job_info.status|lower == "failed"
+      retries: 10
+      delay: 10
       #until: job_info.json.status != "pending"
       #until: "'pending' not in job_info.json.status"
       #retries: 5
@@ -64,9 +67,9 @@
         force_basic_auth: true
         validate_certs: false
         #status_code: 201
-      until: job_info.json.status|lower != "successful" or job_info.status|lower == "failed"
-      retries: 10
-      delay: 10
+#      until: job_info.json.status|lower != "successful" or job_info.status|lower == "failed"
+#      retries: 10
+#      delay: 10
 
     - debug:
         msg: "Retrieving Job ID# through Ansible Tower API"
