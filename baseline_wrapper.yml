@@ -8,8 +8,7 @@
   tasks:
     - name: Find Job Template ID
       uri:
-        #url: https://ansibletower.net/api/v2/job_templates/name={{ job_template_name }}
-        url: https://localhost/api/v2/job_templates/?name=Test+connectivity+to+hosts
+        url: https://ansibletower.net/api/v2/job_templates/name={{ job_template_name }}
         method: GET
         url_username: admin
         url_password: redhat
@@ -29,8 +28,7 @@
 
     - name: Execute Job Template using template_id
       uri:
-        #url: https://{{ ansible_tower_url }}/api/v2/job_templates/{{ job_template_id }}/launch/
-        url: https://localhost/api/v2/job_templates/{{ job_template_id }}/launch/
+        url: https://{{ ansible_tower_url }}/api/v2/job_templates/{{ job_template_id }}/launch/
         method: POST
         url_username: admin
         url_password: redhat
@@ -50,8 +48,7 @@
 
     - name: Get status of job launched in previous task
       uri:
-        #url: https://{{ ansible_tower_url }}/api/v2/jobs/{{ job_id }}
-        url: https://localhost/api/v2/jobs/{{ job_id }}
+        url: https://{{ ansible_tower_url }}/api/v2/jobs/{{ job_id }}
         method: GET
         url_username: admin
         url_password: redhat
