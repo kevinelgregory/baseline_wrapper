@@ -10,8 +10,8 @@
       uri:
         url: https://ansibletower.net/api/v2/job_templates/name={{ job_template_name }}
         method: GET
-        url_username: admin
-        url_password: redhat
+        url_username: "{{ admin_user }}"
+        url_password: "{{ admin_password }}"
         force_basic_auth: true
         validate_certs: false
       register: job_template_json
@@ -30,8 +30,8 @@
       uri:
         url: https://{{ ansible_tower_url }}/api/v2/job_templates/{{ job_template_id }}/launch/
         method: POST
-        url_username: admin
-        url_password: redhat
+        url_username: "{{ admin_user }}"
+        url_password: "{{ admin_password }}"
         force_basic_auth: true
         validate_certs: false
         status_code: 201
@@ -50,8 +50,8 @@
       uri:
         url: https://{{ ansible_tower_url }}/api/v2/jobs/{{ job_id }}
         method: GET
-        url_username: admin
-        url_password: redhat
+        url_username: "{{ admin_user }}"
+        url_password: "{{ admin_password }}"
         force_basic_auth: true
         validate_certs: false
       register: job_data
